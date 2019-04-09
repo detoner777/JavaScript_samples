@@ -1,14 +1,51 @@
+let startBtn = document.getElementById('start'),
+
+    budgetValue = document.getElementsByClassName('budget-value')[0],
+    dayBudgetValue = document.getElementsByClassName('daybudget-value')[0],
+    levelValue = document.getElementsByClassName('level-value')[0],
+    expensesValue = document.getElementsByClassName('expenses-value')[0],
+    optionalExpensesValue = document.getElementsByClassName('optionalexpenses-value')[0],
+    incomeValue = document.getElementsByClassName('income-value')[0],
+    monthSavingsValue = document.getElementsByClassName('monthsavings-value')[0],
+    yearsavingsValue = document.getElementsByClassName('yearsavings-value')[0],
+
+    expensesItem = document.getElementsByClassName('expenses-item'),
+    expensesBtn = document.getElementsByTagName('button')[0],
+    optionalExpenseBtn = document.getElementsByTagName('button')[1],
+    countBtn = document.getElementsByTagName('button')[2],
+    optionalExpensesItem = document.querySelectorAll('.optionalexpenses-item'),
+    incomeItem = document.querySelector('.choose-income'),
+    checkSavings = document.querySelector('#savings'),
+    sumValue = document.querySelector('.choose-sum'),
+    percentValue = document.querySelector('.choose-persent'),
+    yearValue = document.querySelector('.year-value'),
+    monthValue = document.querySelector('.month-value'),
+    dayValue = document.querySelector('.day-value');
+    //countBudgetBtn = document.getElementsByClassName('count-budget-btn');
+
+
 let money, time;
 
-function start() {
-  money = prompt("Ваш бюджет на месяц?", "");
-  time = +prompt("Введите дату в формате YYYY-MM-DD", "");
+
+startBtn.addEventListener('click', function() {
+  time = prompt("Введите дату в формате YYYY-MM-DD", "");
+  money = +prompt("Ваш бюджет на месяц?", "");
+  
+  //проверяем доход, чтобы он был числом и чтобы нельзя было просто отказаться от ввода
   while (isNaN(money) || money === "" || money === null) {
     money = prompt("Ваш бюджет на месяц?", "");
   }
-}
 
-start();
+//записали prompt в объект
+  appData.budget = money;
+  appData.timeData = time;
+  //вывели промпт money в HTML
+  budgetValue.textContent = money.toFixed();
+  //для HTML imput работаем со значением .value а не .textContent
+  yearValue.value = new Date(Date.parse(time)).getFullYear();
+  monthValue.value = new Date(Date.parse(time)).getMonth() + 1;
+  dayValue = new Date(Date.parse(time)).getDate();
+});
 
 
 
@@ -75,20 +112,21 @@ let appData = {
       appData.income = items.split(', ');
       appData.income.push(prompt("Может что-то еще?"));
       appData.income.sort();
+    
+      items.forEach(function(item, i, arr) {
+        alert( i + ": " + item + " (массив:" + arr + ")" );
+      });
+                
     }
   }
 };
 
-
-items.forEach(function(item, i, arr) {
-  alert( i + ": " + item + " (массив:" + arr + ")" );
-});
-
-for (let prop in appData) {
-  console.log("Наша программа включает в себя данные: " + prop + " = " + obj[prop]);
-}
+/*for (let prop in appData) {
+  console.log("Наша программа включает в себя данные: " + prop + " = " + appData[prop]);
+}*/
 
 
 
-
- 
+    
+    
+    
