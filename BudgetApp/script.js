@@ -1,3 +1,4 @@
+
 let startBtn = document.getElementById('start'),
 
     budgetValue = document.getElementsByClassName('budget-value')[0],
@@ -25,6 +26,8 @@ let startBtn = document.getElementById('start'),
 
 
 let money, time;
+
+//переключатель на ввод значений что ниже
 
 
 startBtn.addEventListener('click', function() {
@@ -66,7 +69,10 @@ expensesBtn.addEventListener('click', function() {
     }
   }
   expensesValue.textContent = sum;
+  
 });
+
+
 
 optionalExpensesBtn.addEventListener('click', function() {
   for (let i = 0; i < optionalExpensesItem.length; i++) {
@@ -74,13 +80,16 @@ optionalExpensesBtn.addEventListener('click', function() {
     appData.optionalExpenses[i] = opt;
     optionalExpensesValue.textContent += appData.optionalExpenses[i] + ' ';
   }
+  
 });
 
-countBtn.addEventListener ('click', function() {
 
-  //условие чтобы не вводило ошибку, если не ввели никаких значений но нажали расчитать
-  if (appData.budget != undefined) {
-    appData.moneyPerDay = (appData.budget / 30).toFixed();
+countBtn.addEventListener ('click', function() {
+     
+
+ //условие чтобы не вводило ошибку, если не ввели никаких значений но нажали расчитать
+    if (appData.budget != undefined) {
+    appData.moneyPerDay = ((appData.budget-appData.expenses) / 30).toFixed();
   dayBudgetValue.textContent = appData.moneyPerDay;
 
   if (appData.moneyPerDay < 100) {
@@ -149,4 +158,34 @@ let appData = {
 
     
     
+
+
+function sum( obj ) {
+  var sum = 0;
+  for( var el in obj ) {
+    if( obj.hasOwnProperty( el ) ) {
+      sum += parseFloat( obj[el] );
+    }
+  }
+  return sum;
+}
     
+var sample = appData.expenses;
+var summed = sum( sample );
+console.log( "sum: "+summed );
+
+/*
+function sum( obj ) {
+  var sum = 0;
+  for( var el in obj ) {
+    if( obj.hasOwnProperty( el ) ) {
+      sum += parseFloat( obj[el] );
+    }
+  }
+  return sum;
+}
+    
+var sample = { a: 33 , b: 2 , c:3 , ссі:22 };
+var summed = sum( sample );
+console.log( "sum: "+summed ); 
+*/
