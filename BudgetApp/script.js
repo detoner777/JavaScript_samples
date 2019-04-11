@@ -25,7 +25,7 @@ let startBtn = document.getElementById('start'),
     //countBudgetBtn = document.getElementsByClassName('count-budget-btn');
 
 
-let money, time;
+let money, time, ssummed;
 
 //переключатель на ввод значений что ниже
 
@@ -52,7 +52,7 @@ startBtn.addEventListener('click', function() {
 
 expensesBtn.addEventListener('click', function() {
   let sum = 0;
-//expensesItem.length - подстраиваемся под верстку
+//expensesItem.length - подстраиваемся под верстку(под количество значений которые в нее вводим)
   for (let i = 0; i < expensesItem.length; i++) {
     //присваиваем в переменную "a" все что ввели в "наименования"
     let a = expensesItem[i].value;
@@ -68,11 +68,27 @@ expensesBtn.addEventListener('click', function() {
       i = i - 1;
     }
   }
-  expensesValue.textContent = sum;
+  if (expensesValue.textContent = sum) {
+    
+  }
+//вытягиваем сумму expenses, сохраняем их в summed 
+   else {sumNew()};
+
+function sumNew ( obj ) {
+  let sumNew = 0;
+    for( let el in obj ) {
+      if( obj.hasOwnProperty( el ) ) {
+        sumNew += parseFloat( obj[el] );
+      }
+    }
+    return sumNew;
+  }
+      
+  let sample = appData.expenses;
+   summed = sumNew( sample );
+  console.log( "sum of expenses: "+summed );
   
 });
-
-
 
 optionalExpensesBtn.addEventListener('click', function() {
   for (let i = 0; i < optionalExpensesItem.length; i++) {
@@ -89,7 +105,7 @@ countBtn.addEventListener ('click', function() {
 
  //условие чтобы не вводило ошибку, если не ввели никаких значений но нажали расчитать
     if (appData.budget != undefined) {
-    appData.moneyPerDay = ((appData.budget-appData.expenses) / 30).toFixed();
+    appData.moneyPerDay = ((appData.budget - +summed ) / 30).toFixed();
   dayBudgetValue.textContent = appData.moneyPerDay;
 
   if (appData.moneyPerDay < 100) {
@@ -157,35 +173,6 @@ let appData = {
 };
 
     
-    
 
 
-function sum( obj ) {
-  var sum = 0;
-  for( var el in obj ) {
-    if( obj.hasOwnProperty( el ) ) {
-      sum += parseFloat( obj[el] );
-    }
-  }
-  return sum;
-}
-    
-var sample = appData.expenses;
-var summed = sum( sample );
-console.log( "sum: "+summed );
 
-/*
-function sum( obj ) {
-  var sum = 0;
-  for( var el in obj ) {
-    if( obj.hasOwnProperty( el ) ) {
-      sum += parseFloat( obj[el] );
-    }
-  }
-  return sum;
-}
-    
-var sample = { a: 33 , b: 2 , c:3 , ссі:22 };
-var summed = sum( sample );
-console.log( "sum: "+summed ); 
-*/
